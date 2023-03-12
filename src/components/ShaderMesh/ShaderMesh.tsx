@@ -11,6 +11,7 @@ const ShaderMesh: React.FC<{ vertex: string; fragment: string }> = ({
         vertexShader={vertex}
         fragmentShader={fragment}
         needsUpdate={true}
+        wireframe
       />
     </mesh>
   );
