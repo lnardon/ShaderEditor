@@ -13,16 +13,37 @@
   align-items: center;
   justify-content: space-between;
   padding: 2rem;
-  color: springgreen;
+  color: rgb(255, 255, 255);
   font-size: 1.125rem;
 }
 
-.apply-btn {
+.github-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 0.75rem 1.5rem;
-  background-color: springgreen;
+  padding: 0.5rem 1rem;
+  background-color: rgb(255, 255, 255);
   border-radius: 0.25rem;
   font-weight: 700;
+  text-decoration: none;
+  font-size: 0.85rem;
+  border: none;
+  transition: all 0.4s ease;
+}
+
+.github-btn:hover {
+  transform: scale(1.05);
+}
+
+.github-logo {
+  width: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.github-link {
+  text-decoration: none;
+  color: #1e1e1e;
 }
 
 .content {
@@ -43,13 +64,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem 0.5rem;
+  gap: 1rem 0.25rem;
+  position: relative;
 }
 
 .tab-btn {
   background-color: transparent;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem 0.5rem 0rem 0rem;
+  border-radius: 0.25rem 0.25rem 0rem 0rem;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -63,4 +85,39 @@
   background-color: rgb(250, 194, 9);
   color: black;
   font-weight: 700;
+}
+
+.run-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  background-color: rgb(250, 194, 9);
+  border-radius: 0.25rem;
+  font-weight: 700;
+  border: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  margin: 0.5rem 0rem;
+}
+
+.run-btn:hover {
+  transform: scale(1.05);
+}
+
+.play-icon {
+  width: 1.25rem;
+  margin-right: 0.25rem;
+}
+
+.decorationsOverviewRuler {
+  display: none !important;
+}
+
+.overflow-hidden {
+  border-right: 1px solid #eeeeee4b !important;
+  height: calc(100vh - 167px);
 }

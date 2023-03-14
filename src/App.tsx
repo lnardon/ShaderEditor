@@ -44,9 +44,15 @@ function App() {
     <div className="App">
       <header className="header-container">
         <h1>GLSL Shader Editor</h1>
-        <button onClick={handleShaderRender} className="apply-btn">
-          Apply Shader
-        </button>
+        <div className="github-btn">
+          <img className="github-logo" src="./logo.png" alt="Github Logo" />
+          <a
+            className="github-link"
+            href="https://github.com/lnardon/ShaderEditor"
+          >
+            View on Github
+          </a>
+        </div>
       </header>
       <div className="content">
         <div className="left-side">
@@ -70,6 +76,15 @@ function App() {
               }}
             >
               Fragment Shader
+            </button>
+            <button
+              className="run-btn"
+              onClick={() => {
+                handleShaderRender();
+              }}
+            >
+              <img className="play-icon" src="./play.png" alt="Play" />
+              {/* Run */}
             </button>
           </div>
           <Editor
