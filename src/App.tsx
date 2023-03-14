@@ -1,24 +1,39 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { PresentationControls } from "@react-three/drei";
-import Editor from "@monaco-editor/react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import { shaders } from "./shaders";
+import { glslDefinition } from "./utils/glsl-language-definition";
 
 import "./App.css";
 import ShaderMesh from "./components/ShaderMesh/ShaderMesh";
 
 function App() {
-  const ref = useRef<any>(null);
+  const monaco = useMonaco();
+  const [activeTab, setActiveTab] = useState(true);
   const [vertex, setVertex] = useState<any>(shaders.vertex);
   const [fragment, setFragment] = useState<any>(shaders.fragment);
+  const [currentText, setCurrentText] = useState<any>(shaders.vertex);
   const [showShader, setShowShader] = useState(true);
 
   function handleShaderRender() {
     setShowShader(false);
     setTimeout(() => {
       setShowShader(true);
-    }, 1000);
+    }, 10);
   }
+
+  function addGLSL(monaco: any) {
+    monaco.languages.register({ id: "glsl" });
+    monaco.languages.setMonarchTokensProvider("glsl", glslDefinition);
+    // monaco.editor.defineTheme("custom-dark", customTheme);
+  }
+
+  useEffect(() => {
+    if (monaco) {
+      addGLSL(monaco);
+    }
+  }, [monaco]);
 
   return (
     <div className="App">
@@ -31,12 +46,31 @@ function App() {
       <div className="content">
         <div className="left-side">
           <div className="shader-tabs">
-            <button>Vertex Shader</button>
-            <button>Fragment Shader</button>
+            <button
+              className={`tab-btn ${activeTab ? "active-tab" : ""}`}
+              onClick={() => {
+                setFragment(currentText);
+                setActiveTab(true);
+                setCurrentText(vertex);
+              }}
+            >
+              Vertex Shader
+            </button>
+            <button
+              className={`tab-btn ${!activeTab ? "active-tab" : ""}`}
+              onClick={() => {
+                setVertex(currentText);
+                setActiveTab(false);
+                setCurrentText(fragment);
+              }}
+            >
+              Fragment Shader
+            </button>
           </div>
           <Editor
             className=" overflow-hidden"
             theme="vs-dark"
+            language="glsl"
             options={{
               scrollbar: {
                 vertical: "hidden",
@@ -48,10 +82,11 @@ function App() {
             }}
             height="80vh"
             defaultLanguage="glsl"
-            defaultValue={fragment}
             onChange={(e) => {
-              setFragment(e);
+              activeTab ? setVertex(e) : setFragment(e);
+              // setCurrentText(e);
             }}
+            value={currentText}
           />
         </div>
         <Canvas>
@@ -62,12 +97,12 @@ function App() {
             global={true} // Spin globally or by dragging the model
             cursor={true} // Whether to toggle cursor style on drag
             snap={false} // Snap-back to center (can also be a spring config)
-            speed={1} // Speed factor
+            speed={2} // Speed factor
             zoom={1} // Zoom factor when half the polar-max is reached
             rotation={[0, 0, 0]} // Default rotation
-            polar={[0, Math.PI / 2]} // Vertical limits
+            polar={[-Infinity, Infinity]} // Vertical limits
             azimuth={[-Infinity, Infinity]} // Horizontal limits
-            config={{ mass: 0.3, tension: 10, friction: 5 }} // Spring config
+            config={{ mass: 0.0001, tension: 0.001, friction: 0.0005 }} // Spring config
           >
             {showShader ? (
               <ShaderMesh vertex={vertex} fragment={fragment} />

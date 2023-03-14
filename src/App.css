@@ -38,10 +38,29 @@
 }
 
 .shader-tabs {
-  padding: 0rem 2rem 2rem 2rem;
+  padding: 0rem 2rem 0.5rem 2rem;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem;
+  gap: 1rem 0.5rem;
+}
+
+.tab-btn {
+  background-color: transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: rgb(250, 194, 9);
+  border-color: rgb(250, 194, 9);
+  border: 1px solid;
+  border-bottom: none;
+}
+
+.active-tab {
+  background-color: rgb(250, 194, 9);
+  color: black;
+  font-weight: 700;
 }
