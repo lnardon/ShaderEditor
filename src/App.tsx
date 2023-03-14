@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { PresentationControls } from "@react-three/drei";
 import Editor, { useMonaco } from "@monaco-editor/react";
-import { shaders } from "./shaders";
+import { shaders } from "./utils/shaders";
 import { glslDefinition } from "./utils/glsl-language-definition";
 
 import "./App.css";
@@ -18,6 +18,11 @@ function App() {
 
   function handleShaderRender() {
     setShowShader(false);
+    if (activeTab) {
+      setVertex(currentText);
+    } else {
+      setFragment(currentText);
+    }
     setTimeout(() => {
       setShowShader(true);
     }, 10);
@@ -83,8 +88,7 @@ function App() {
             height="80vh"
             defaultLanguage="glsl"
             onChange={(e) => {
-              activeTab ? setVertex(e) : setFragment(e);
-              // setCurrentText(e);
+              setCurrentText(e);
             }}
             value={currentText}
           />
