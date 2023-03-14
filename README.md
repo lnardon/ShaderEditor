@@ -6,7 +6,7 @@ Online editor for GLSL Shaders
   <img src="./demo.gif">
 </p>
 
-## [Access website here](https://github.com/lnardon/ShaderEditor/ "Homepage")
+## [Access website here](https://glsl-editor.web.app/ "Homepage")
 
 ### What was used
 
