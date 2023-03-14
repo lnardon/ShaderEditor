@@ -43,7 +43,10 @@ function App() {
   return (
     <div className="App">
       <header className="header-container">
-        <h1>GLSL Shader Editor</h1>
+        <div className="logo-container">
+          <img className="logo" src="./icon.png" alt="Logo" />
+          <h1 className="title">GLSL Shader Editor</h1>
+        </div>
         <div className="github-btn">
           <img className="github-logo" src="./logo.png" alt="Github Logo" />
           <a

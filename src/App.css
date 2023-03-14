@@ -17,6 +17,21 @@
   font-size: 1.125rem;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0rem 1rem;
+}
+
+.logo {
+  height: 3.45rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
 .github-btn {
   display: flex;
   align-items: center;
