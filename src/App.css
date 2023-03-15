@@ -102,12 +102,34 @@
   font-weight: 700;
 }
 
+.renderActionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  padding: 0rem 2rem 0rem 0rem;
+}
+
+.geometrySelect {
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 0.125rem;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #fff;
+}
+
+option {
+  color: #1e1e1e;
+  cursor: pointer;
+}
 .run-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  right: 0rem;
+  right: 2rem;
   cursor: pointer;
   padding: 0.75rem;
   background-color: rgb(250, 194, 9);

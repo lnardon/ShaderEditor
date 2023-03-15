@@ -80,15 +80,6 @@ function App() {
             >
               Fragment Shader
             </button>
-            <button
-              className="run-btn"
-              onClick={() => {
-                handleShaderRender();
-              }}
-            >
-              <img className="play-icon" src="./play.png" alt="Play" />
-              {/* Run */}
-            </button>
           </div>
           <Editor
             className=" overflow-hidden"
@@ -111,26 +102,44 @@ function App() {
             value={currentText}
           />
         </div>
-        <Canvas>
-          <ambientLight />
-          <pointLight position={[10, 10, 10]} />
-          <PresentationControls
-            enabled={true} // the controls can be disabled by setting this to false
-            global={true} // Spin globally or by dragging the model
-            cursor={true} // Whether to toggle cursor style on drag
-            snap={false} // Snap-back to center (can also be a spring config)
-            speed={2} // Speed factor
-            zoom={1} // Zoom factor when half the polar-max is reached
-            rotation={[0, 0, 0]} // Default rotation
-            polar={[-Infinity, Infinity]} // Vertical limits
-            azimuth={[-Infinity, Infinity]} // Horizontal limits
-            config={{ mass: 0.0001, tension: 0.001, friction: 0.0005 }} // Spring config
-          >
-            {showShader ? (
-              <ShaderMesh vertex={vertex} fragment={fragment} />
-            ) : null}
-          </PresentationControls>
-        </Canvas>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="renderActionsContainer">
+            <button
+              className="run-btn"
+              onClick={() => {
+                handleShaderRender();
+              }}
+            >
+              <img className="play-icon" src="./play.png" alt="Play" />
+              Run
+            </button>
+            <select name="" id="" className="geometrySelect">
+              <option value="plane">Plane Geometry</option>
+              <option value="box">Box Geometry</option>
+              <option value="sphere">Sphere Geometry</option>
+            </select>
+          </div>
+          <Canvas>
+            <ambientLight />
+            <pointLight position={[10, 10, 10]} />
+            <PresentationControls
+              enabled={true}
+              global={true}
+              cursor={true}
+              snap={false}
+              speed={2}
+              zoom={1}
+              rotation={[0, 0, 0]}
+              polar={[-Infinity, Infinity]} // Vertical limits
+              azimuth={[-Infinity, Infinity]} // Horizontal limits
+              config={{ mass: 0.0001, tension: 0.001, friction: 0.0005 }}
+            >
+              {showShader ? (
+                <ShaderMesh vertex={vertex} fragment={fragment} />
+              ) : null}
+            </PresentationControls>
+          </Canvas>
+        </div>
       </div>
     </div>
   );
