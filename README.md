@@ -1,6 +1,6 @@
 # [GLSL Shader Editor](https://glsl-editor.web.app/)
 
-Online editor for GLSL Shaders
+An OpenGL Shading Language (GLSL) code editor using Three.js
 
 <p align="center" style="height: 600px">
   <img src="./demo.gif">
