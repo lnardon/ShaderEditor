@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { PresentationControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import { shaders } from "./utils/shaders";
 import { glslDefinition } from "./utils/glsl-language-definition";
@@ -15,6 +15,7 @@ function App() {
   const [fragment, setFragment] = useState<any>(shaders.fragment);
   const [currentText, setCurrentText] = useState<any>(shaders.vertex);
   const [showShader, setShowShader] = useState(true);
+  const [geometry, setGeometry] = useState("plane");
 
   function handleShaderRender() {
     setShowShader(false);
@@ -112,31 +113,28 @@ function App() {
               <img className="play-icon" src="./play.png" alt="Play" />
               Run
             </button>
-            <select name="" id="" className="geometrySelect">
+            <select
+              name=""
+              id=""
+              className="geometrySelect"
+              onChange={(e) => setGeometry(e.target.value)}
+            >
               <option value="plane">Plane Geometry</option>
               <option value="box">Box Geometry</option>
               <option value="sphere">Sphere Geometry</option>
             </select>
           </div>
-          <Canvas>
+          <Canvas camera={{ position: [0, 0, 128] }}>
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
-            <PresentationControls
-              enabled={true}
-              global={true}
-              cursor={true}
-              snap={false}
-              speed={2}
-              zoom={1}
-              rotation={[0, 0, 0]}
-              polar={[-Infinity, Infinity]} // Vertical limits
-              azimuth={[-Infinity, Infinity]} // Horizontal limits
-              config={{ mass: 0.0001, tension: 0.001, friction: 0.0005 }}
-            >
-              {showShader ? (
-                <ShaderMesh vertex={vertex} fragment={fragment} />
-              ) : null}
-            </PresentationControls>
+            <OrbitControls />
+            {showShader ? (
+              <ShaderMesh
+                vertex={vertex}
+                fragment={fragment}
+                geometry={geometry}
+              />
+            ) : null}
           </Canvas>
         </div>
       </div>
