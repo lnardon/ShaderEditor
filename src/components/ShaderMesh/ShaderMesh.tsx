@@ -9,6 +9,7 @@ const ShaderMesh: React.FC<{ vertex: string; fragment: string }> = ({
   useFrame((state) => {
     let time = state.clock.getElapsedTime();
     ref.current.material.uniforms.uTime.value = time;
+    ref.current.material.uniforms.uRandom.value = Math.random();
   });
 
   return (
@@ -19,7 +20,7 @@ const ShaderMesh: React.FC<{ vertex: string; fragment: string }> = ({
         fragmentShader={fragment}
         needsUpdate={true}
         wireframe
-        uniforms={{ uTime: { value: 0 } }}
+        uniforms={{ uTime: { value: 0.5 }, uRandom: { value: 0.0 } }}
       />
     </mesh>
   );

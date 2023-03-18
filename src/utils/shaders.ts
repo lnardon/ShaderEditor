@@ -3,7 +3,7 @@ export const shaders = {
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform float uTime;
-
+uniform float uRandom;
 attribute vec3 position;
 
 void main()
@@ -13,11 +13,11 @@ void main()
 `,
   fragment: `precision mediump float;
 uniform float uTime;
-
+uniform float uRandom;
 
 void main()
 {
-    gl_FragColor = vec4(sin(uTime)/1.30, cos(uTime)/1.20, tan(uTime)/1.20, 1.0);
+    gl_FragColor = vec4(sin(uTime + (uRandom / 7.0))/1.30, cos(uTime)/1.20, tan(uRandom / 5.0)/1.20, 1.0);
 }
 `,
 };
