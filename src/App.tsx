@@ -88,7 +88,6 @@ function App() {
             options={{
               scrollbar: {
                 vertical: "hidden",
-                horizontal: "hidden",
                 handleMouseWheel: false,
               },
               hideCursorInOverviewRuler: true,
@@ -102,7 +101,7 @@ function App() {
             value={currentText}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className="right-side">
           <div className="renderActionsContainer">
             <button
               className="run-btn"

@@ -70,7 +70,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 50%;
 }
 
 .shader-tabs {
@@ -157,4 +157,10 @@ option {
 .overflow-hidden {
   border-right: 1px solid #eeeeee4b !important;
   height: calc(100vh - 167px);
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
