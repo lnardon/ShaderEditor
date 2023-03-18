@@ -25,7 +25,7 @@ const ShaderMesh: React.FC<{
   }
 
   return (
-    <mesh ref={ref}>
+    <mesh ref={ref} rotation={[Math.PI / 1.5, 0, 0]}>
       <>
         {getGeometry()}
         <rawShaderMaterial

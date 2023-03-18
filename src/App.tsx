@@ -48,14 +48,14 @@ function App() {
           <img className="logo" src="./icon.png" alt="Logo" />
           <h1 className="title">GLSL Shader Editor</h1>
         </div>
-        <div className="github-btn">
+        <div
+          className="github-btn"
+          onClick={() =>
+            window.open("https://github.com/lnardon/ShaderEditor", "_blank")
+          }
+        >
           <img className="github-logo" src="./logo.png" alt="Github Logo" />
-          <a
-            className="github-link"
-            href="https://github.com/lnardon/ShaderEditor"
-          >
-            View on Github
-          </a>
+          View on Github
         </div>
       </header>
       <div className="content">
@@ -87,10 +87,6 @@ function App() {
             theme="vs-dark"
             language="glsl"
             options={{
-              scrollbar: {
-                vertical: "hidden",
-                handleMouseWheel: false,
-              },
               hideCursorInOverviewRuler: true,
               minimap: { enabled: false },
             }}

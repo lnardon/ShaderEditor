@@ -25,11 +25,13 @@
 
 .logo {
   height: 3.45rem;
+  animation: logoPopup 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .title {
   font-size: 1.5rem;
   font-weight: 300;
+  animation: slideLeft 1.3s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
 }
 
 .github-btn {
@@ -45,6 +47,7 @@
   font-size: 0.85rem;
   border: none;
   transition: all 0.4s ease;
+  color: #131313;
 }
 
 .github-btn:hover {
@@ -163,4 +166,29 @@ option {
   display: flex;
   flex-direction: column;
   width: 50%;
+  height: calc(100vh - 119px);
+}
+
+@keyframes logoPopup {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    clip-path: polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%);
+  }
 }
