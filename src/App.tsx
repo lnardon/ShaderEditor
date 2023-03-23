@@ -64,9 +64,11 @@ function App() {
             <button
               className={`tab-btn ${activeTab ? "active-tab" : ""}`}
               onClick={() => {
-                setFragment(currentText);
+                if(!activeTab){
+                  setFragment(currentText);
                 setActiveTab(true);
                 setCurrentText(vertex);
+                }
               }}
             >
               Vertex Shader
@@ -74,9 +76,11 @@ function App() {
             <button
               className={`tab-btn ${!activeTab ? "active-tab" : ""}`}
               onClick={() => {
-                setVertex(currentText);
+                if(activeTab) {
+                  setVertex(currentText);
                 setActiveTab(false);
                 setCurrentText(fragment);
+                }
               }}
             >
               Fragment Shader
