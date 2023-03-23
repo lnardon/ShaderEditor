@@ -66,8 +66,8 @@ function App() {
               onClick={() => {
                 if(!activeTab){
                   setFragment(currentText);
-                setActiveTab(true);
-                setCurrentText(vertex);
+                  setActiveTab(true);
+                  setCurrentText(vertex);
                 }
               }}
             >
@@ -78,8 +78,8 @@ function App() {
               onClick={() => {
                 if(activeTab) {
                   setVertex(currentText);
-                setActiveTab(false);
-                setCurrentText(fragment);
+                  setActiveTab(false);
+                  setCurrentText(fragment);
                 }
               }}
             >
