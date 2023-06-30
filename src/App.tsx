@@ -17,6 +17,7 @@ function App() {
   const [showShader, setShowShader] = useState(true);
   const [geometry, setGeometry] = useState("plane");
   const [wireframe, setWireframe] = useState(false);
+  const [geometrySize, setGeometrySize] = useState(32);
   const [numberOfSegments, setNumberOfSegments] = useState(4);
 
   function handleShaderRender() {
@@ -117,9 +118,7 @@ function App() {
             </button>
             <div>
               <select
-                name=""
-                id=""
-                className="geometrySelect"
+                className="settingsSelect"
                 onChange={(e) => setGeometry(e.target.value)}
               >
                 <option value="plane">Plane Geometry</option>
@@ -127,9 +126,7 @@ function App() {
                 <option value="sphere">Sphere Geometry</option>
               </select>
               <select
-                name=""
-                id=""
-                className="geometrySelect"
+                className="settingsSelect"
                 onChange={(e) =>
                   e.target.value === "true"
                     ? setWireframe(true)
@@ -140,9 +137,7 @@ function App() {
                 <option value="true">Wireframe</option>
               </select>
               <select
-                name=""
-                id=""
-                className="geometrySelect"
+                className="settingsSelect"
                 onChange={(e) => setNumberOfSegments(Number(e.target.value))}
               >
                 <option value="1">1 Segments</option>
@@ -157,14 +152,28 @@ function App() {
                 <option value="512">512 Segments</option>
                 <option value="1024">1024 Segments</option>
               </select>
+              <select
+                className="settingsSelect"
+                onChange={(e) => setGeometrySize(Number(e.target.value))}
+              >
+                <option value="1">Size: 1</option>
+                <option value="2">Size: 2</option>
+                <option value="4">Size: 4</option>
+                <option value="8">Size: 8</option>
+                <option value="16">Size: 16</option>
+                <option value="32">Size: 32</option>
+                <option value="64">Size: 64</option>
+                <option value="128">Size: 128</option>
+                <option value="256">Size: 256</option>
+                <option value="512">Size: 512</option>
+                <option value="1024">Size: 1024</option>
+              </select>
             </div>
           </div>
           <Canvas
             camera={{ position: [0, 0, 128] }}
             style={{ width: "calc(100% - 32px)", borderRadius: "8px" }}
           >
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
             <OrbitControls />
             {showShader ? (
               <ShaderMesh
@@ -173,6 +182,7 @@ function App() {
                 fragment={fragment}
                 geometry={geometry}
                 numberOfSegments={numberOfSegments}
+                geometrySize={geometrySize}
               />
             ) : null}
           </Canvas>
