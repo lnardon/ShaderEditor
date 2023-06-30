@@ -77,7 +77,7 @@
 }
 
 .shader-tabs {
-  padding: 0rem 2rem 0.5rem 2rem;
+  padding: 0rem 1rem 0.5rem 2rem;
   width: 100%;
   display: flex;
   align-items: center;
@@ -113,7 +113,7 @@
   padding: 0rem 2rem 0rem 0rem;
 }
 
-.geometrySelect {
+.settingsSelect {
   background-color: transparent;
   padding: 0.5rem;
   border-radius: 0.125rem;
@@ -122,12 +122,14 @@
   outline: none;
   border: none;
   border-bottom: 1px solid #fff;
+  margin-right: 0.25rem;
 }
 
 option {
   color: #1e1e1e;
   cursor: pointer;
 }
+
 .run-btn {
   display: flex;
   align-items: center;
