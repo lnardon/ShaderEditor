@@ -7,7 +7,8 @@ const ShaderMesh: React.FC<{
   fragment: string;
   geometry: string;
   wireframe: boolean;
-}> = ({ vertex, fragment, geometry, wireframe }) => {
+  numberOfSegments: number;
+}> = ({ vertex, fragment, geometry, wireframe, numberOfSegments }) => {
   const ref = useRef<any>();
   useFrame((state) => {
     let time = state.clock.getElapsedTime();
@@ -18,11 +19,17 @@ const ShaderMesh: React.FC<{
   function getGeometry() {
     switch (geometry) {
       case "box":
-        return <boxGeometry args={[8, 8, 8, 8]} />;
+        return (
+          <boxGeometry args={[8, 8, numberOfSegments, numberOfSegments]} />
+        );
       case "sphere":
-        return <sphereGeometry args={[8, 16, 32]} />;
+        return <sphereGeometry args={[8, 16, numberOfSegments]} />;
       default:
-        return <planeGeometry args={[64, 64, 128, 128]} />;
+        return (
+          <planeGeometry
+            args={[256, 256, numberOfSegments, numberOfSegments]}
+          />
+        );
     }
   }
 

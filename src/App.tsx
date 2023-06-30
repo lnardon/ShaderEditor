@@ -17,6 +17,7 @@ function App() {
   const [showShader, setShowShader] = useState(true);
   const [geometry, setGeometry] = useState("plane");
   const [wireframe, setWireframe] = useState(false);
+  const [numberOfSegments, setNumberOfSegments] = useState(4);
 
   function handleShaderRender() {
     setShowShader(false);
@@ -135,8 +136,26 @@ function App() {
                     : setWireframe(false)
                 }
               >
-                <option value="true">Wireframe</option>
                 <option value="false">Material</option>
+                <option value="true">Wireframe</option>
+              </select>
+              <select
+                name=""
+                id=""
+                className="geometrySelect"
+                onChange={(e) => setNumberOfSegments(Number(e.target.value))}
+              >
+                <option value="1">1 Segments</option>
+                <option value="2">2 Segments</option>
+                <option value="4">4 Segments</option>
+                <option value="8">8 Segments</option>
+                <option value="16">16 Segments</option>
+                <option value="32">32 Segments</option>
+                <option value="64">64 Segments</option>
+                <option value="128">128 Segments</option>
+                <option value="256">256 Segments</option>
+                <option value="512">512 Segments</option>
+                <option value="1024">1024 Segments</option>
               </select>
             </div>
           </div>
@@ -153,6 +172,7 @@ function App() {
                 vertex={vertex}
                 fragment={fragment}
                 geometry={geometry}
+                numberOfSegments={numberOfSegments}
               />
             ) : null}
           </Canvas>
