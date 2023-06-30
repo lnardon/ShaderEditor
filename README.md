@@ -1,6 +1,6 @@
 # [GLSL Shader Editor](https://glsl-editor.web.app/)
 
-An OpenGL Shading Language (GLSL) code editor using Three.js
+An open-source OpenGL Shading Language (GLSL) code editor using Three.js on the web.
 
 <p align="center" style="height: 600px">
   <img src="./demo.gif">
