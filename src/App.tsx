@@ -16,6 +16,7 @@ function App() {
   const [currentText, setCurrentText] = useState<any>(shaders.vertex);
   const [showShader, setShowShader] = useState(true);
   const [geometry, setGeometry] = useState("plane");
+  const [wireframe, setWireframe] = useState(false);
 
   function handleShaderRender() {
     setShowShader(false);
@@ -64,7 +65,7 @@ function App() {
             <button
               className={`tab-btn ${activeTab ? "active-tab" : ""}`}
               onClick={() => {
-                if(!activeTab){
+                if (!activeTab) {
                   setFragment(currentText);
                   setActiveTab(true);
                   setCurrentText(vertex);
@@ -76,7 +77,7 @@ function App() {
             <button
               className={`tab-btn ${!activeTab ? "active-tab" : ""}`}
               onClick={() => {
-                if(activeTab) {
+                if (activeTab) {
                   setVertex(currentText);
                   setActiveTab(false);
                   setCurrentText(fragment);
@@ -113,23 +114,42 @@ function App() {
               <img className="play-icon" src="./play.png" alt="Play" />
               Run
             </button>
-            <select
-              name=""
-              id=""
-              className="geometrySelect"
-              onChange={(e) => setGeometry(e.target.value)}
-            >
-              <option value="plane">Plane Geometry</option>
-              <option value="box">Box Geometry</option>
-              <option value="sphere">Sphere Geometry</option>
-            </select>
+            <div>
+              <select
+                name=""
+                id=""
+                className="geometrySelect"
+                onChange={(e) => setGeometry(e.target.value)}
+              >
+                <option value="plane">Plane Geometry</option>
+                <option value="box">Box Geometry</option>
+                <option value="sphere">Sphere Geometry</option>
+              </select>
+              <select
+                name=""
+                id=""
+                className="geometrySelect"
+                onChange={(e) =>
+                  e.target.value === "true"
+                    ? setWireframe(true)
+                    : setWireframe(false)
+                }
+              >
+                <option value="true">Wireframe</option>
+                <option value="false">Material</option>
+              </select>
+            </div>
           </div>
-          <Canvas camera={{ position: [0, 0, 128] }}>
+          <Canvas
+            camera={{ position: [0, 0, 128] }}
+            style={{ width: "calc(100% - 32px)", borderRadius: "8px" }}
+          >
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <OrbitControls />
             {showShader ? (
               <ShaderMesh
+                wireframe={wireframe}
                 vertex={vertex}
                 fragment={fragment}
                 geometry={geometry}

@@ -1,11 +1,13 @@
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 
 const ShaderMesh: React.FC<{
   vertex: string;
   fragment: string;
   geometry: string;
-}> = ({ vertex, fragment, geometry }) => {
+  wireframe: boolean;
+}> = ({ vertex, fragment, geometry, wireframe }) => {
   const ref = useRef<any>();
   useFrame((state) => {
     let time = state.clock.getElapsedTime();
@@ -20,7 +22,7 @@ const ShaderMesh: React.FC<{
       case "sphere":
         return <sphereGeometry args={[8, 16, 32]} />;
       default:
-        return <planeGeometry args={[32, 32, 32, 32]} />;
+        return <planeGeometry args={[64, 64, 128, 128]} />;
     }
   }
 
@@ -29,10 +31,12 @@ const ShaderMesh: React.FC<{
       <>
         {getGeometry()}
         <rawShaderMaterial
+          attach="material"
+          side={THREE.DoubleSide}
           vertexShader={vertex}
           fragmentShader={fragment}
           needsUpdate={true}
-          wireframe
+          wireframe={wireframe}
           uniforms={{ uTime: { value: 0.5 }, uRandom: { value: 0.0 } }}
         />
       </>
