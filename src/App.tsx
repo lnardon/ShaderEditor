@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import Editor, { useMonaco } from "@monaco-editor/react";
+import { useMonaco } from "@monaco-editor/react";
 import { shaders } from "./utils/shaders";
 import { glslDefinition } from "./utils/glsl-language-definition";
-
 import "./App.css";
 import ShaderMesh from "./components/ShaderMesh/ShaderMesh";
+import Header from "./components/Header";
+import TextEditor from "./components/TextEditor";
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 
 function App() {
   const monaco = useMonaco();
@@ -15,7 +16,6 @@ function App() {
   const [fragment, setFragment] = useState<any>(shaders.fragment);
   const [currentText, setCurrentText] = useState<any>(shaders.vertex);
   const [showShader, setShowShader] = useState(true);
-  const [geometry, setGeometry] = useState("plane");
   const [wireframe, setWireframe] = useState(false);
   const [geometrySize, setGeometrySize] = useState(32);
   const [numberOfSegments, setNumberOfSegments] = useState(4);
@@ -35,7 +35,6 @@ function App() {
   function addGLSL(monaco: any) {
     monaco.languages.register({ id: "glsl" });
     monaco.languages.setMonarchTokensProvider("glsl", glslDefinition);
-    // monaco.editor.defineTheme("custom-dark", customTheme);
   }
 
   useEffect(() => {
@@ -46,63 +45,19 @@ function App() {
 
   return (
     <div className="App">
-      <header className="header-container">
-        <div className="logo-container">
-          <img className="logo" src="./icon.png" alt="Logo" />
-          <h1 className="title">GLSL Shader Editor</h1>
-        </div>
-        <div
-          className="github-btn"
-          onClick={() =>
-            window.open("https://github.com/lnardon/ShaderEditor", "_blank")
-          }
-        >
-          <img className="github-logo" src="./logo.png" alt="Github Logo" />
-          View on Github
-        </div>
-      </header>
+      <Header />
+
       <div className="content">
         <div className="left-side">
-          <div className="shader-tabs">
-            <button
-              className={`tab-btn ${activeTab ? "active-tab" : ""}`}
-              onClick={() => {
-                if (!activeTab) {
-                  setFragment(currentText);
-                  setActiveTab(true);
-                  setCurrentText(vertex);
-                }
-              }}
-            >
-              Vertex Shader
-            </button>
-            <button
-              className={`tab-btn ${!activeTab ? "active-tab" : ""}`}
-              onClick={() => {
-                if (activeTab) {
-                  setVertex(currentText);
-                  setActiveTab(false);
-                  setCurrentText(fragment);
-                }
-              }}
-            >
-              Fragment Shader
-            </button>
-          </div>
-          <Editor
-            className=" overflow-hidden"
-            theme="vs-dark"
-            language="glsl"
-            options={{
-              hideCursorInOverviewRuler: true,
-              minimap: { enabled: false },
-            }}
-            height="80vh"
-            defaultLanguage="glsl"
-            onChange={(e) => {
-              setCurrentText(e);
-            }}
-            value={currentText}
+          <TextEditor
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            setFragment={setFragment}
+            setVertex={setVertex}
+            currentText={currentText}
+            setCurrentText={setCurrentText}
+            vertex={vertex}
+            fragment={fragment}
           />
         </div>
         <div className="right-side">
@@ -117,14 +72,6 @@ function App() {
               Run
             </button>
             <div>
-              <select
-                className="settingsSelect"
-                onChange={(e) => setGeometry(e.target.value)}
-              >
-                <option value="plane">Plane Geometry</option>
-                <option value="box">Box Geometry</option>
-                <option value="sphere">Sphere Geometry</option>
-              </select>
               <select
                 className="settingsSelect"
                 onChange={(e) =>
@@ -180,7 +127,7 @@ function App() {
                 wireframe={wireframe}
                 vertex={vertex}
                 fragment={fragment}
-                geometry={geometry}
+                geometry={"plane"}
                 numberOfSegments={numberOfSegments}
                 geometrySize={geometrySize}
               />
