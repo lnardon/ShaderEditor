@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/Header";
 import TextEditor from "./components/TextEditor";
 import RenderView from "./components/RenderView";
+import { useTextStore } from "./utils/store";
 
 function App() {
   const [vertex, setVertex] = useState<any>(shaders.vertex);
@@ -13,11 +14,23 @@ function App() {
   const [geometrySize, setGeometrySize] = useState(32);
   const [numberOfSegments, setNumberOfSegments] = useState(4);
 
+  const { currentText, activeTab } = useTextStore();
+
+  useTextStore.subscribe(() => {
+    handleShaderRender();
+  });
+
   function handleShaderRender() {
     setShowShader(false);
+    if (activeTab) {
+      if (vertex !== currentText) setVertex(currentText);
+    } else {
+      if (fragment !== currentText) setFragment(currentText);
+    }
+
     setTimeout(() => {
       setShowShader(true);
-    }, 200);
+    }, 20);
   }
 
   return (
@@ -31,8 +44,6 @@ function App() {
             setVertex={setVertex}
             vertex={vertex}
             fragment={fragment}
-            setShowShader={setShowShader}
-            getCurrentText={() => vertex}
           />
         </div>
         <div className="right-side">
