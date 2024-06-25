@@ -1,4 +1,4 @@
-import { useEffect, memo } from "react";
+import { useEffect } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import ShaderMesh from "../ShaderMesh/ShaderMesh";
@@ -44,4 +44,4 @@ const RenderView = ({
   );
 };
 
-export default memo(RenderView);
+export default RenderView;

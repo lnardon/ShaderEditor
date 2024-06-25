@@ -1,24 +1,34 @@
-import { Editor } from "@monaco-editor/react";
+import { useEffect } from "react";
+import { Editor, useMonaco } from "@monaco-editor/react";
+import { glslDefinition } from "../../utils/glsl-language-definition";
+import { useTextStore } from "../../utils/store";
 
 const TextEditor = ({
-  activeTab,
-  setActiveTab,
   setFragment,
   setVertex,
-  currentText,
-  setCurrentText,
   vertex,
   fragment,
 }: {
-  activeTab: boolean;
-  setActiveTab: (activeTab: boolean) => void;
   setFragment: (fragment: string) => void;
   setVertex: (vertex: string) => void;
-  currentText: string;
-  setCurrentText: (currentText: string | undefined) => void;
   vertex: string;
   fragment: string;
 }) => {
+  const monaco = useMonaco();
+  const { currentText, activeTab, setCurrentText, setActiveTab } =
+    useTextStore();
+
+  function addGLSL(monaco: any) {
+    monaco.languages.register({ id: "glsl" });
+    monaco.languages.setMonarchTokensProvider("glsl", glslDefinition);
+  }
+
+  useEffect(() => {
+    if (monaco) {
+      addGLSL(monaco);
+    }
+  }, [monaco]);
+
   return (
     <>
       <div className="shader-tabs">
@@ -58,7 +68,7 @@ const TextEditor = ({
         height="80vh"
         defaultLanguage="glsl"
         onChange={(e) => {
-          setCurrentText(e);
+          setCurrentText(e!);
         }}
         value={currentText}
       />
