@@ -1,47 +1,24 @@
-import { useEffect, useState } from "react";
-import { useMonaco } from "@monaco-editor/react";
+import { useState } from "react";
 import { shaders } from "./utils/shaders";
-import { glslDefinition } from "./utils/glsl-language-definition";
 import "./App.css";
-import ShaderMesh from "./components/ShaderMesh/ShaderMesh";
 import Header from "./components/Header";
 import TextEditor from "./components/TextEditor";
-import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import RenderView from "./components/RenderView";
 
 function App() {
-  const monaco = useMonaco();
-  const [activeTab, setActiveTab] = useState(true);
   const [vertex, setVertex] = useState<any>(shaders.vertex);
   const [fragment, setFragment] = useState<any>(shaders.fragment);
-  const [currentText, setCurrentText] = useState<any>(shaders.vertex);
   const [showShader, setShowShader] = useState(true);
-  const [wireframe, setWireframe] = useState(false);
+  const [wireframe, setWireframe] = useState(true);
   const [geometrySize, setGeometrySize] = useState(32);
   const [numberOfSegments, setNumberOfSegments] = useState(4);
 
   function handleShaderRender() {
     setShowShader(false);
-    if (activeTab) {
-      setVertex(currentText);
-    } else {
-      setFragment(currentText);
-    }
     setTimeout(() => {
       setShowShader(true);
-    }, 10);
+    }, 200);
   }
-
-  function addGLSL(monaco: any) {
-    monaco.languages.register({ id: "glsl" });
-    monaco.languages.setMonarchTokensProvider("glsl", glslDefinition);
-  }
-
-  useEffect(() => {
-    if (monaco) {
-      addGLSL(monaco);
-    }
-  }, [monaco]);
 
   return (
     <div className="App">
@@ -50,14 +27,12 @@ function App() {
       <div className="content">
         <div className="left-side">
           <TextEditor
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
             setFragment={setFragment}
             setVertex={setVertex}
-            currentText={currentText}
-            setCurrentText={setCurrentText}
             vertex={vertex}
             fragment={fragment}
+            setShowShader={setShowShader}
+            getCurrentText={() => vertex}
           />
         </div>
         <div className="right-side">
@@ -79,6 +54,7 @@ function App() {
                     ? setWireframe(true)
                     : setWireframe(false)
                 }
+                defaultValue={wireframe ? "true" : "false"}
               >
                 <option value="false">Material</option>
                 <option value="true">Wireframe</option>
@@ -86,6 +62,7 @@ function App() {
               <select
                 className="settingsSelect"
                 onChange={(e) => setNumberOfSegments(Number(e.target.value))}
+                defaultValue={numberOfSegments}
               >
                 <option value="1">1 Segments</option>
                 <option value="2">2 Segments</option>
@@ -102,6 +79,7 @@ function App() {
               <select
                 className="settingsSelect"
                 onChange={(e) => setGeometrySize(Number(e.target.value))}
+                defaultValue={geometrySize}
               >
                 <option value="1">Size: 1</option>
                 <option value="2">Size: 2</option>
@@ -117,22 +95,15 @@ function App() {
               </select>
             </div>
           </div>
-          <Canvas
-            camera={{ position: [0, 0, 128] }}
-            style={{ width: "calc(100% - 32px)", borderRadius: "8px" }}
-          >
-            <OrbitControls />
-            {showShader ? (
-              <ShaderMesh
-                wireframe={wireframe}
-                vertex={vertex}
-                fragment={fragment}
-                geometry={"plane"}
-                numberOfSegments={numberOfSegments}
-                geometrySize={geometrySize}
-              />
-            ) : null}
-          </Canvas>
+          <RenderView
+            showShader={showShader}
+            wireframe={wireframe}
+            vertex={vertex}
+            fragment={fragment}
+            numberOfSegments={numberOfSegments}
+            geometrySize={geometrySize}
+            handleShaderRender={handleShaderRender}
+          />
         </div>
       </div>
     </div>

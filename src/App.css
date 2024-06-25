@@ -109,7 +109,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row-reverse;
+  flex-direction: row;
   padding: 0rem 2rem 0rem 0rem;
 }
 
